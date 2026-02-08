@@ -9,13 +9,13 @@ public class UserResponseRegisterDTO {
     private String email;
     private String token;
 
-    public static UserResponseRegisterDTO convertUserInDTO(User userDataBase){
+    public static UserResponseRegisterDTO convertUserInDTO(User userDataBase, String token){
         UserResponseRegisterDTO responseRegisterDTO = new UserResponseRegisterDTO();
 
         responseRegisterDTO.setId(userDataBase.getId());
         responseRegisterDTO.setName(userDataBase.getName());
         responseRegisterDTO.setEmail(userDataBase.getEmail());
-        responseRegisterDTO.setToken("TokenTemporárioFake");
+        responseRegisterDTO.setToken(token);
 
         return responseRegisterDTO;
     }

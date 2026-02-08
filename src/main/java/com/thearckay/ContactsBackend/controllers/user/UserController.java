@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @RestController
 @RequestMapping("/users")
@@ -41,6 +40,7 @@ public class UserController {
         UserLoginResponseDTO respLogin = service.loginUser(userLoginDTO);
         ResponseAPI responseAPI = new ResponseAPI();
         responseAPI.success(List.of(respLogin), "Logado com Sucesso!");
+
         return ResponseEntity.status(200).body(responseAPI);
     }
 }

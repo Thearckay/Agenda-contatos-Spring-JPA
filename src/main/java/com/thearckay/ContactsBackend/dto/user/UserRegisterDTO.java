@@ -33,7 +33,6 @@ public record UserRegisterDTO(
 ) {
 
     public User convertToUser(){
-        System.out.println("Convertindo");
         User user = new User();
         user.setName(this.fullName);
         user.setEmail(this.email);

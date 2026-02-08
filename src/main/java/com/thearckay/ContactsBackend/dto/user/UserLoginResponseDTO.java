@@ -10,7 +10,6 @@ public class UserLoginResponseDTO {
     private Long id;
     private String name;
     private String email;
-    // todo - token para modificar quando implementá-lo
     private String token;
     private List<Contact> contactList;
 
@@ -19,16 +18,13 @@ public class UserLoginResponseDTO {
         this.name = name;
         this.email = email;
         this.token = token;
-        this.contactList = contactList;
     }
 
-    public UserLoginResponseDTO(User user){
+    public UserLoginResponseDTO(User user, String token){
         this.id = user.getId();
         this.name = user.getName();
         this.email = user.getEmail();
-        // token para mudar
-        this.token = "token temporário";
-        this.contactList = user.getContactList();
+        this.token = token;
     }
 
     public Long getId() {

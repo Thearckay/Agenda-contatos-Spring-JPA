@@ -21,9 +21,8 @@ public record NewContactDTO(
     LocalDate birthdate,
     String occupation,
     String city,
+    String neighborhood,
     String street,
     String streetNumber,
-    String neighborhood,
-    String note,
-    String token
+    String note
 ){}

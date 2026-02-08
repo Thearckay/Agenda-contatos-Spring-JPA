@@ -1,5 +1,6 @@
 package com.thearckay.ContactsBackend.entity;
 
+import com.thearckay.ContactsBackend.dto.contact.NewContactDTO;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SQLDelete;
@@ -61,6 +62,7 @@ public class Contact {
 
     @Column(name = "house_number")
     private String houseNumber;
+    private String note;
 
     public Contact() {}
     public Contact(User user, String name, String email, String phone, String workPhone, LocalDate birthdate, String zipCode, String occupation, Boolean favorite, LocalDateTime createdAt, String pictureURL, Boolean deleted, String street, String neighbourhood, String complement, String city, String state, String houseNumber) {
@@ -82,6 +84,19 @@ public class Contact {
         this.city = city;
         this.state = state;
         this.houseNumber = houseNumber;
+    }
+
+    public Contact(NewContactDTO newContactDTO){
+        this.name = newContactDTO.fullName();
+        this.email = newContactDTO.email();
+        this.phone = newContactDTO.phone();
+        this.birthdate = newContactDTO.birthdate();
+        this.occupation = newContactDTO.occupation();
+        this.city = newContactDTO.occupation();
+        this.neighbourhood = newContactDTO.neighborhood();
+        this.state = newContactDTO.street();
+        this.houseNumber = newContactDTO.streetNumber();
+        this.note = newContactDTO.note();
     }
 
     public Long getId() {
