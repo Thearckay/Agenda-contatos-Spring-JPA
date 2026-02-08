@@ -1,5 +1,6 @@
 package com.thearckay.ContactsBackend.infra.security;
 
+import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.thearckay.ContactsBackend.entity.User;
 import com.thearckay.ContactsBackend.repository.UserRepository;
 import com.thearckay.ContactsBackend.service.TokenService;
@@ -8,10 +9,12 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+import org.springframework.web.servlet.HandlerExceptionResolver;
 
 import java.io.IOException;
 
@@ -24,20 +27,32 @@ public class SecurityFilter extends OncePerRequestFilter {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    @Qualifier("handlerExceptionResolver")
+    private HandlerExceptionResolver handlerExceptionResolver;
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String token = getToken(request);
         if (token != null){
-            System.out.println("FILTRO EXECUTOU");
-            String email = tokenService.verifyToken(token);
-            System.out.println("O email do meliante é:  "+email);
-            if (email !=null && !email.isEmpty()){
-                User userFromDataBase = userRepository.findByEmail(email);
-                var authentication = new UsernamePasswordAuthenticationToken(userFromDataBase, null, userFromDataBase.getAuthorities());
-                SecurityContextHolder.getContext().setAuthentication(authentication);
-                System.out.println("Principal no filtro: " + authentication.getPrincipal());
+            try {
+                String email = tokenService.verifyToken(token);
 
+                if (email !=null && !email.isEmpty()){
+                    User userFromDataBase = userRepository.findByEmail(email);
+                    var authentication = new UsernamePasswordAuthenticationToken(userFromDataBase, null, userFromDataBase.getAuthorities());
+                    SecurityContextHolder.getContext().setAuthentication(authentication);
+
+                    User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+                    System.out.println("Principal no filtro: " + user.getName());
+
+                }
+
+            } catch (TokenExpiredException e){
+                handlerExceptionResolver.resolveException(request, response, null, e);
+                return;
             }
+
         }
 
         filterChain.doFilter(request,response);

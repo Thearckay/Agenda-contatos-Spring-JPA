@@ -1,6 +1,7 @@
 package com.thearckay.ContactsBackend.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.security.core.GrantedAuthority;
@@ -46,7 +47,8 @@ public class User implements UserDetails {
     @JsonIgnore
     private Boolean deleted = false;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @JsonIgnoreProperties("user")
     private List<Contact> contactList;
 
     public User(){}

@@ -3,9 +3,13 @@ package com.thearckay.ContactsBackend.service;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.thearckay.ContactsBackend.entity.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.HandlerExceptionResolver;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -16,6 +20,10 @@ public class TokenService {
     @Value("${token.secret.key}")
     private String secretKey;
 
+    @Autowired
+    @Qualifier("handlerExceptionResolver")
+    private HandlerExceptionResolver handlerExceptionResolver;
+
     public String genereteToken(String email){
         try{
             System.out.println("Token gerado - para o email: "+email);
@@ -24,6 +32,7 @@ public class TokenService {
                     .withIssuer("contact-api")
                     .withSubject(email)
                     .withExpiresAt(timeExpiration())
+//                    .withExpiresAt(LocalDateTime.now().plusSeconds(30).toInstant(ZoneOffset.of("-03:00")))
                     .sign(algorithm);
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -43,8 +52,8 @@ public class TokenService {
                     .build()
                     .verify(token)
                     .getSubject();
-        } catch (JWTVerificationException e) {
-            return "";
+        } catch (TokenExpiredException e) {
+            throw new TokenExpiredException(e.getMessage(), e.getExpiredOn());
         }
     }
 

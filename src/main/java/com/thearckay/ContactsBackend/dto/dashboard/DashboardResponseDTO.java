@@ -1,5 +1,6 @@
 package com.thearckay.ContactsBackend.dto.dashboard;
 
+import com.thearckay.ContactsBackend.dto.contact.ContactResponseDTO;
 import com.thearckay.ContactsBackend.entity.Contact;
 
 import java.util.List;
@@ -11,7 +12,7 @@ public class DashboardResponseDTO {
     private Integer totalFavorites;
     // todo - preciso refinar a lógica dos novos contatos do Mês
     private Integer newContactsThisMonth;
-    private List<Contact> contactList;
+    private List<ContactResponseDTO> contactList;
 
     public String getUserName() {
         return userName;
@@ -45,11 +46,12 @@ public class DashboardResponseDTO {
         this.newContactsThisMonth = newContactsThisMonth;
     }
 
-    public List<Contact> getContactList() {
+    public List<ContactResponseDTO> getContactList() {
         return contactList;
     }
 
-    public void setContactList(List<Contact> contactList) {
+    public void setContactList(List<ContactResponseDTO> contactList) {
         this.contactList = contactList;
     }
+
 }

@@ -64,6 +64,14 @@ public class Contact {
     private String houseNumber;
     private String note;
 
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
     public Contact() {}
     public Contact(User user, String name, String email, String phone, String workPhone, LocalDate birthdate, String zipCode, String occupation, Boolean favorite, LocalDateTime createdAt, String pictureURL, Boolean deleted, String street, String neighbourhood, String complement, String city, String state, String houseNumber) {
         this.user = user;

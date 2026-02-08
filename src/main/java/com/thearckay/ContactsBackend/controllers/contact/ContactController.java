@@ -1,6 +1,7 @@
 package com.thearckay.ContactsBackend.controllers.contact;
 
 import com.thearckay.ContactsBackend.dto.contact.NewContactDTO;
+import com.thearckay.ContactsBackend.dto.responseAPI.ResponseAPI;
 import com.thearckay.ContactsBackend.service.ContactService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,4 +22,5 @@ public class ContactController {
         contactService.salveContact(newContact);
         return ResponseEntity.ok().build();
     }
+
 }

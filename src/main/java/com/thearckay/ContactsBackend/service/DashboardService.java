@@ -1,8 +1,10 @@
 package com.thearckay.ContactsBackend.service;
 
+import com.thearckay.ContactsBackend.dto.contact.ContactResponseDTO;
 import com.thearckay.ContactsBackend.dto.dashboard.DashboardResponseDTO;
 import com.thearckay.ContactsBackend.dto.responseAPI.ResponseAPI;
 import com.thearckay.ContactsBackend.entity.User;
+import jakarta.transaction.Transactional;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -16,6 +18,7 @@ import java.util.stream.Collectors;
 public class DashboardService {
 
     // todo - tem que fazer o rest controller advice do desse método
+    @Transactional
     public ResponseEntity<ResponseAPI> getAllDashboardInformation(){
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
@@ -27,7 +30,7 @@ public class DashboardService {
         dashboardResponseDTO.setUserName(user.getName());
         dashboardResponseDTO.setTotalContacts(user.getContactList().size());
         dashboardResponseDTO.setTotalFavorites(user.getContactList().stream().filter( c -> c.getFavorite()).toList().size());
-        dashboardResponseDTO.getContactList().stream().filter(contact -> contact.getFavorite()).toList();
+        dashboardResponseDTO.setContactList(user.getContactList().stream().map(contact -> new ContactResponseDTO(contact)).toList());
 
         ResponseAPI<DashboardResponseDTO> responseAPI = new ResponseAPI();
         List<DashboardResponseDTO> responseDTOList = new ArrayList<>();
