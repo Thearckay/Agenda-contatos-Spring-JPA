@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestControllerAdvice
@@ -17,7 +16,7 @@ public class GlobalControllerAdvice {
     public ResponseEntity<ResponseAPI> tokenExpired(TokenExpiredException e){
         ResponseAPI responseAPI = new ResponseAPI();
         List<ResponseAPI.Error> errorList = List.of(new ResponseAPI.Error("Token", "Token expirado"));
-        responseAPI.error(HttpStatus.UNAUTHORIZED, errorList , "Token Expirado");
+        responseAPI.error(HttpStatus.UNAUTHORIZED, errorList , "Token Expirado, faça login novamente");
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseAPI);
     }
 }

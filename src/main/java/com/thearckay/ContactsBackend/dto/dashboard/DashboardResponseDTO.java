@@ -8,11 +8,21 @@ import java.util.List;
 public class DashboardResponseDTO {
 
     private String userName;
+    private String userEmail;
     private Integer totalContacts;
     private Integer totalFavorites;
     // todo - preciso refinar a lógica dos novos contatos do Mês
     private Integer newContactsThisMonth;
     private List<ContactResponseDTO> contactList;
+    private List<ContactResponseDTO> favoritedContactList;
+
+    public List<ContactResponseDTO> getFavoritedContactList() {
+        return favoritedContactList;
+    }
+
+    public void setFavoritedContactList(List<ContactResponseDTO> favoritedContactList) {
+        this.favoritedContactList = favoritedContactList;
+    }
 
     public String getUserName() {
         return userName;
@@ -54,4 +64,11 @@ public class DashboardResponseDTO {
         this.contactList = contactList;
     }
 
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+    }
 }

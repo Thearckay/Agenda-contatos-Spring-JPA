@@ -10,6 +10,7 @@ public record NewContactDTO(
     //todo - o contato tem que estar atrelado a um usuário - colocar um token ou algo assim
     @NotBlank
     String fullName,
+    Boolean favorited,
     @Email(message = "E-mail inválido!")
     String email,
     @NotBlank

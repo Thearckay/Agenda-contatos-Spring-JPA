@@ -7,6 +7,7 @@ import com.thearckay.ContactsBackend.entity.User;
 import java.time.LocalDate;
 
 public class ContactResponseDTO {
+    private Long id;
     private String fullName;
     private String email;
     private String phone;
@@ -17,8 +18,10 @@ public class ContactResponseDTO {
     private String street;
     private String streetNumber;
     private String note;
+    private Boolean favorite;
 
     public ContactResponseDTO(Contact c){
+        setId(c.getId());
         setFullName(c.getName());
         setEmail(c.getEmail());
         setPhone(c.getPhone());
@@ -29,6 +32,25 @@ public class ContactResponseDTO {
         setStreet(c.getStreet());
         setStreetNumber(c.getHouseNumber());
         setNote(c.getNote());
+        setFavorite(c.getFavorite());
+
+
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Boolean getFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(Boolean favorite) {
+        this.favorite = favorite;
     }
 
     public String getFullName() {

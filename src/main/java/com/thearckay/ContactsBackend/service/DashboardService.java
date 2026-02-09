@@ -28,9 +28,13 @@ public class DashboardService {
 
         DashboardResponseDTO dashboardResponseDTO = new DashboardResponseDTO();
         dashboardResponseDTO.setUserName(user.getName());
+        dashboardResponseDTO.setUserEmail(user.getEmail());
         dashboardResponseDTO.setTotalContacts(user.getContactList().size());
         dashboardResponseDTO.setTotalFavorites(user.getContactList().stream().filter( c -> c.getFavorite()).toList().size());
         dashboardResponseDTO.setContactList(user.getContactList().stream().map(contact -> new ContactResponseDTO(contact)).toList());
+        dashboardResponseDTO.setFavoritedContactList(
+                user.getContactList().stream().filter(contact -> contact.getFavorite())
+                        .map(contact -> new ContactResponseDTO(contact)).toList());
 
         ResponseAPI<DashboardResponseDTO> responseAPI = new ResponseAPI();
         List<DashboardResponseDTO> responseDTOList = new ArrayList<>();

@@ -105,6 +105,7 @@ public class Contact {
         this.state = newContactDTO.street();
         this.houseNumber = newContactDTO.streetNumber();
         this.note = newContactDTO.note();
+        this.favorite = newContactDTO.favorited();
     }
 
     public Long getId() {
