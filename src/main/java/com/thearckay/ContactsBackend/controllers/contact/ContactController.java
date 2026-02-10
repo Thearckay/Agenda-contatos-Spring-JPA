@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(origins = "http://localhost:5173")
 public class ContactController {
 
-    //todo - terminar de fazer o controller
     @Autowired
     private ContactService contactService;
 

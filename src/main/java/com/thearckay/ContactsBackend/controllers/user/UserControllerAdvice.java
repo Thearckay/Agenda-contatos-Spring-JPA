@@ -47,7 +47,6 @@ public class UserControllerAdvice {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(responseAPI);
     }
 
-    // todo- implementar erro de login
     @ExceptionHandler(LoginErrorException.class)
     public ResponseEntity<ResponseAPI> loginError(LoginErrorException e){
         ResponseAPI responseAPI = new ResponseAPI();

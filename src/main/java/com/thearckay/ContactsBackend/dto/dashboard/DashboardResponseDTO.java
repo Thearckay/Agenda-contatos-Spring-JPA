@@ -11,7 +11,6 @@ public class DashboardResponseDTO {
     private String userEmail;
     private Integer totalContacts;
     private Integer totalFavorites;
-    // todo - preciso refinar a lógica dos novos contatos do Mês
     private Integer newContactsThisMonth;
     private List<ContactResponseDTO> contactList;
     private List<ContactResponseDTO> favoritedContactList;
